@@ -57,7 +57,18 @@ public class UserController extends HttpServlet {
 //			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views//user/joinOk.jsp");
 //			rd.forward(request, response);
 			
-			WebUtil.forword(request, response, "/WEB-INF/views//user/joinOk.jsp");
+			WebUtil.forword(request, response, "/WEB-INF/views/user/joinOk.jsp");
+		
+		} else if("loginFrom".equals(action)){
+			
+			WebUtil.forword(request, response, "/WEB-INF/views/user/loginFrom.jsp");
+			
+			
+		} else if("addList".equals(action)){	
+			System.out.println("addList");
+			
+			WebUtil.forword(request, response, "/WEB-INF/views/guestbook/addList.jsp");
+			
 			
 		} else {
 			System.out.println("나머지");
