@@ -63,6 +63,10 @@ public class UserVo {
 	public int getNo() {
 		return no;
 	}
+	
+	public void setNo(int no) {
+		this.no = no;
+	}
 
 	// 메소드 일반
 	@Override

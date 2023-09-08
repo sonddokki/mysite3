@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<%String result = request.getParameter("result");%>
 
 <!DOCTYPE html>
 <html>
@@ -71,20 +72,25 @@
 	
 				<div id="user">
 					<div id="loginForm">
-						<form action="" method="">
+						<form action="./user" method="get">
 	
 							<!-- 아이디 -->
 							<div class="form-group">
 								<label class="form-text" for="input-uid">아이디</label> 
-								<input type="text" id="input-uid" name="" value="" placeholder="아이디를 입력하세요">
+								<input type="text" id="input-uid" name="id" value="" placeholder="아이디를 입력하세요">
 							</div>
 	
 							<!-- 비밀번호 -->
 							<div class="form-group">
 								<label class="form-text" for="input-pass">비밀번호</label> 
-								<input type="text" id="input-pass" name="" value="" placeholder="비밀번호를 입력하세요"	>
+								<input type="text" id="input-pass" name="pw" value="" placeholder="비밀번호를 입력하세요"	>
 							</div>
-	
+							
+							<% if ("fail".equals(result)) {%>
+							<p>로그인에 실패 했습니다.</p> <br>
+							<%}%>
+							
+							<input type="text" name="action" value="login">
 							
 							<!-- 버튼영역 -->
 							<div class="button-area">

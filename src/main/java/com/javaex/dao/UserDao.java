@@ -100,5 +100,53 @@ public class UserDao {
 		return count;
 	}
 
+	// (4) 회원정보가져오기 (로그인용)
+	public UserVo userSelect(UserVo userVo) {
+		// 기본값을 null로 초기화하여 값이 틀릴때 null로 반환
+		UserVo authUser = null;
+		this.getConnect();
+	
+		try {
+			// SQL문 준비 / 바인딩 / 실행
+			// (1) SQL문 준비
+			String query = "";
+			query += " SELECT  no, name ";
+			query += " FROM users ";
+			query += " where id = ? ";
+			query += " and password = ? ";
+
+			pstmt = conn.prepareStatement(query);
+
+			// (2) 바인딩 값을 vo에 setter로 넣어준다
+			pstmt.setString(1, userVo.getId());
+			pstmt.setString(2, userVo.getPassword());
+
+			// (3) 실행
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			int no = rs.getInt(1);
+			String name = rs.getString(2);
+			
+			// 새로 메모리올려서 받아온 값 넣기
+			authUser = new UserVo();
+			authUser.setNo(no);
+			authUser.setName(name);
+			
+			// 결과처리
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		}
+
+		this.close();
+		
+		return authUser;
+	
+	}
+	
+	
+	
+	
+	
 	
 }
