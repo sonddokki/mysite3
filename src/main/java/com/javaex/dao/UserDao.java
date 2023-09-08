@@ -111,10 +111,7 @@ public class UserDao {
 			// (1) SQL문 준비
 			String query = "";
 			query += " SELECT  no ";
-			query += "         ,id ";
-			query += "         ,password ";
 			query += "         ,name ";
-			query += "         ,gender ";
 			query += " FROM users ";
 			query += " where id = ? ";
 			query += " and password = ? ";
@@ -129,14 +126,13 @@ public class UserDao {
 			rs = pstmt.executeQuery();
 			
 			rs.next();
-			int no = rs.getInt(1);			
-			String id = rs.getString(2);
-			String password = rs.getString(3);
+			int no = rs.getInt(1);	
 			String name = rs.getString(4);
-			String gender = rs.getString(5);
 			
 			// 새로 메모리올려서 받아온 값 넣기
-			authUser = new UserVo(no, id, password, name, gender);
+			authUser = new UserVo();
+			authUser.setNo(no);
+			authUser.setName(name);
 			
 			// 결과처리
 		} catch (SQLException e) {
