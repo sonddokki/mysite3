@@ -14,25 +14,8 @@
 <body>
 	<div id="wrap">
 
-		<div id="header" class="clearfix">
-			<h1>
-				<a href="./main">MySite</a>
-			</h1>
-
-			<!-- 
-			<ul>
-				<li>황일영 님 안녕하세요^^</li>
-				<li><a href="" class="btn_s">로그아웃</a></li>
-				<li><a href="" class="btn_s">회원정보수정</a></li>
-			</ul>
-			-->
-			<ul>
-				<li><a href="./user?action=loginFrom" class="btn_s">로그인</a></li>
-				<li><a href="./user?action=joinFrom" class="btn_s">회원가입</a></li>
-			</ul>
-
-		</div>
-		<!-- //header -->
+		<!-- header -->
+		<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 
 		<div id="nav">
 			<ul class="clearfix">

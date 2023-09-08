@@ -20,26 +20,8 @@
 
 		<div id="wrap">
 
-		<div id="header" class="clearfix">
-			<h1>
-				<a href="./main">MySite</a>
-			</h1>
-
-			<% if (authUser != null) { %>			
-			<ul>
-				<li><%=authUser.getName()%>님 안녕하세요^^</li>
-				<li><a href="./user?action=logout" class="btn_s">로그아웃</a></li>
-				<li><a href="./user?action=modifyForm" class="btn_s">회원정보수정</a></li>
-			</ul>
-			
-			<%} else { %>
-			<ul>
-				<li><a href="./user?action=loginFrom" class="btn_s">로그인</a></li>
-				<li><a href="./user?action=joinFrom" class="btn_s">회원가입</a></li>
-			</ul>
-			<% } %>
-		</div>
-		<!-- //header -->
+		<!-- header -->
+		<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 
 		<div id="nav">
 			<ul class="clearfix">
@@ -79,27 +61,37 @@
 
 				<div id="user">
 					<div id="modifyForm">
-						<form action="" method="">
-
+						<form action="user" method="get">
+						<input type="hidden"  name="action" value="modify" >
+						<input type="hidden"  name="id" value="<%=authUser.getId()%>" >
 							<!-- 아이디 -->
 							<div class="form-group">
-								<label class="form-text" for="input-uid">아이디</label> <span class="text-large bold">userid</span>
+								<label class="form-text" for="input-uid">아이디</label> <span class="text-large bold"><%=authUser.getId()%></span>
 							</div>
 
 							<!-- 비밀번호 -->
 							<div class="form-group">
-								<label class="form-text" for="input-pass">패스워드</label> <input type="text" id="input-pass" name="" value="" placeholder="비밀번호를 입력하세요">
+								<label class="form-text" for="input-pass">패스워드</label> <input type="text" id="input-pass" name="pw" value="<%=authUser.getPassword()%>" placeholder="비밀번호를 입력하세요">
 							</div>
 
 							<!-- 이메일 -->
 							<div class="form-group">
-								<label class="form-text" for="input-name">이름</label> <input type="text" id="input-name" name="" value="" placeholder="이름을 입력하세요">
+								<label class="form-text" for="input-name">이름</label> <input type="text" id="input-name" name="name" value="<%=authUser.getName()%>" placeholder="이름을 입력하세요">
 							</div>
 
 							<!-- //나이 -->
 							<div class="form-group">
-								<span class="form-text">성별</span> <label for="rdo-male">남</label> <input type="radio" id="rdo-male" name="" value=""> <label
-									for="rdo-female">여</label> <input type="radio" id="rdo-female" name="" value="">
+								<span class="form-text">성별</span>
+								<label for="rdo-male">남</label> <input type="radio" id="rdo-male" name="gender" value="male"
+								<% if ("male".equals(authUser.getGender())) {%>
+								checked
+								<%}%>
+								>
+								<label for="rdo-female">여</label> <input type="radio" id="rdo-female" name="gender" value="female"
+								<% if ("female".equals(authUser.getGender())) {%>
+								checked
+								<%}%>
+								>
 
 							</div>
 

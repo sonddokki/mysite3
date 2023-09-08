@@ -106,7 +106,31 @@ public class UserController extends HttpServlet {
 			
 			WebUtil.forword(request, response, "/WEB-INF/views/user/modifyForm.jsp");
 			
+		} else if ("modify".equals(action)) {
+			System.out.println("modify");
 			
+			String id = request.getParameter("id");
+			String password = request.getParameter("pw");
+			String name = request.getParameter("name");
+			String gender = request.getParameter("gender");
+			
+			UserVo userVo = new UserVo(id, password, name, gender);
+			System.out.println(userVo);
+			HttpSession session = request.getSession();
+			// 기존 세션삭제 
+			session.invalidate();
+			
+			UserDao userDao = new UserDao();
+			int count = userDao.userUpdate(userVo);		
+			System.out.println(count);
+			System.out.println(userVo);
+			
+			UserVo updateUser = userDao.userSelect(userVo);
+			
+			session.setAttribute("authUser", updateUser);
+			
+			//회원정보수정후 메인으로 리다이렉트
+			WebUtil.redirect(request, response, "/mysite3/main");
 			
 		// guestbook 으로 옮기기		
 //		} else if ("addList".equals(action)) {
