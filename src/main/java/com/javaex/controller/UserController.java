@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -102,31 +103,25 @@ public class UserController extends HttpServlet {
 			WebUtil.redirect(request, response, "/mysite3/main");
 			
 		} else if ("modifyForm".equals(action)) {
-			System.out.println("modifyForm");
+			System.out.println("회원정보수정폼");
 			
 			WebUtil.forword(request, response, "/WEB-INF/views/user/modifyForm.jsp");
 			
 		} else if ("modify".equals(action)) {
 			System.out.println("modify");
-			
+			// 파라미터 값빼오기			
 			String id = request.getParameter("id");
 			String password = request.getParameter("pw");
 			String name = request.getParameter("name");
 			String gender = request.getParameter("gender");
-			
+			// vo로 묶기
 			UserVo userVo = new UserVo(id, password, name, gender);
-			System.out.println(userVo);
-			HttpSession session = request.getSession();
-			// 기존 세션삭제 
-			session.invalidate();
-			
+			// 묶은 vo를 dao로 업데이트 실행
 			UserDao userDao = new UserDao();
-			int count = userDao.userUpdate(userVo);		
-			System.out.println(count);
-			System.out.println(userVo);
-			
+			userDao.userUpdate(userVo);
 			UserVo updateUser = userDao.userSelect(userVo);
-			
+			// 세션 업데이트
+			HttpSession session = request.getSession();
 			session.setAttribute("authUser", updateUser);
 			
 			//회원정보수정후 메인으로 리다이렉트

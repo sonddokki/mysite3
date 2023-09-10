@@ -127,13 +127,12 @@ public class UserDao {
 			
 			rs.next();
 			int no = rs.getInt(1);	
-			String name = rs.getString(4);
+			String name = rs.getString(2);
 			
 			// 새로 메모리올려서 받아온 값 넣기
 			authUser = new UserVo();
 			authUser.setNo(no);
 			authUser.setName(name);
-			
 			// 결과처리
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
@@ -145,54 +144,56 @@ public class UserDao {
 	
 	}
 	
-	// (4) 회원정보가져오기 (수정폼용)
-		public UserVo userUpdateSelect(UserVo userVo) {
-			// 기본값을 null로 초기화하여 값이 틀릴때 null로 반환
-			UserVo authUser = null;
-			this.getConnect();
-		
-			try {
-				// SQL문 준비 / 바인딩 / 실행
-				// (1) SQL문 준비
-				String query = "";
-				query += " SELECT  no ";
-				query += "         ,id ";
-				query += "         ,password ";
-				query += "         ,name ";
-				query += "         ,gender ";
-				query += " FROM users ";
-				query += " where id = ? ";
+	// (5) 회원정보가져오기 (수정폼용)
+	public UserVo userUpdateSelect(UserVo userVo) {
+		// 기본값을 null로 초기화하여 값이 틀릴때 null로 반환
+		UserVo authUser = null;
+		this.getConnect();
+	
+		try {
+			// SQL문 준비 / 바인딩 / 실행
+			// (1) SQL문 준비
+			String query = "";
+			query += " SELECT  no ";
+			query += "         ,id ";
+			query += "         ,password ";
+			query += "         ,name ";
+			query += "         ,gender ";
+			query += " FROM users ";
+			query += " where no = ? ";
+			query += " and name = ? ";
 
-				pstmt = conn.prepareStatement(query);
+			pstmt = conn.prepareStatement(query);
 
-				// (2) 바인딩 값을 vo에 setter로 넣어준다
-				pstmt.setString(1, userVo.getId());
-				pstmt.setString(2, userVo.getPassword());
+			// (2) 바인딩 값을 vo에 setter로 넣어준다
+			pstmt.setInt(1, userVo.getNo());
+			pstmt.setString(2, userVo.getName());
 
-				// (3) 실행
-				rs = pstmt.executeQuery();
-				
-				rs.next();
-				int no = rs.getInt(1);			
-				String id = rs.getString(2);
-				String password = rs.getString(3);
-				String name = rs.getString(4);
-				String gender = rs.getString(5);
-				
-				// 새로 메모리올려서 받아온 값 넣기
-				authUser = new UserVo(no, id, password, name, gender);
-				
-				// 결과처리
-			} catch (SQLException e) {
-				System.out.println("error:" + e);
-			}
-
-			this.close();
+			// (3) 실행
+			rs = pstmt.executeQuery();
 			
-			return authUser;
-		
+			rs.next();
+			int no = rs.getInt(1);			
+			String id = rs.getString(2);
+			String password = rs.getString(3);
+			String name = rs.getString(4);
+			String gender = rs.getString(5);
+			
+			// 새로 메모리올려서 받아온 값 넣기
+			authUser = new UserVo(no, id, password, name, gender);
+			
+			// 결과처리
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
 		}
-	// (5) 회원정보수정하기
+
+		this.close();
+		
+		return authUser;
+	
+	}
+			
+	// (6) 회원정보수정하기
 	public int userUpdate(UserVo userVo) {
 				
 		int count = -1;
