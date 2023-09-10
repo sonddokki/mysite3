@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.javaex.dao.GuestDao"%>
+<%@ page import="com.javaex.dao.BoardDao"%>
 <%@ page import="com.javaex.vo.BoardVo"%>
 <%@ page import="java.util.List"%>
 
 <%
 // request의 어트리뷰트 영역에 있는 data를 꺼내온다.
 	// 게시판테이블에서 가져오기
-	List<BoardVo> boradList = (List<BoardVo>)request.getAttribute("bList");
+	List<BoardVo> boardList = (List<BoardVo>)request.getAttribute("bList");
 %>
 
 
@@ -54,7 +54,7 @@
 	
 				<div id="board">
 					<div id="list">
-						<form action="" method="">
+						<form action="select" method="get">
 							<div class="form-group text-right">
 								<input type="text">
 								<button type="submit" id=btn_search>검색</button>
@@ -72,16 +72,16 @@
 								</tr>
 							</thead>
 							<tbody>
-							<%//for (int i = 0; i < boardList.size(); i++) {%>
+							<%for (int i = 0; i < boardList.size(); i++) {%>
 								<tr>
-									<td>123</td>
-									<td class="text-left"><a href="#">게시판 게시글입니다.</a></td>
-									<td>정우성</td>
-									<td>1232</td>
-									<td>2020-12-23</td>
-									<td><a href="">[삭제]</a></td>
+									<td><%=boardList.get(i).getNum()%></td>
+									<td class="text-left"><a href="#"><%=boardList.get(i).getTitle()%></a></td>
+									<td><%=boardList.get(i).getId()%></td>
+									<td><%=boardList.get(i).getViews()%></td>
+									<td><%=boardList.get(i).getRegDate()%></td>
+									<td><a href="./brc?action=delete">[삭제]</a></td>
 								</tr>
-							<%//} %>
+							<%} %>
 							</tbody>
 						</table>
 			

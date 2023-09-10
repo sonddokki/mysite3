@@ -1,13 +1,17 @@
 package com.javaex.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.javaex.dao.BoardDao;
 import com.javaex.util.WebUtil;
+import com.javaex.vo.BoardVo;
 
 
 @WebServlet("/brc")
@@ -23,14 +27,20 @@ public class BoardController extends HttpServlet {
 
 		if ("list".equals(action)) {
 			System.out.println("list");
+			
+			BoardDao boardDao = new BoardDao();
+			List<BoardVo> guestList = boardDao.boardSelect("");
+
+			// request data를 넣는다
+			request.setAttribute("bList", guestList);
 		
 			WebUtil.forword(request, response, "/WEB-INF/views/board/list.jsp");
 
-		} else if ("join".equals(action)) {
-			System.out.println("join");
+		} else if ("read".equals(action)) {
+			System.out.println("read");
 			
-		} else if ("join".equals(action)) {
-			System.out.println("join");
+		} else if ("delete".equals(action)) {
+			System.out.println("delete");
 			
 		
 		} else {

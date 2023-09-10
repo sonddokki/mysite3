@@ -62,7 +62,7 @@ public class BoardDao {
 	
 	
 	// 게시판 리스트 수정중
-	public List<BoardVo> guestSelect(String keyword) {
+	public List<BoardVo> boardSelect(String keyword) {
 
 		List<BoardVo> boardList = new ArrayList<BoardVo>();
 
@@ -72,10 +72,11 @@ public class BoardDao {
 			// 3. SQL문 준비 / 바인딩 / 실행
 			// SQL문 준비
 			String query = "";
-			query += " select  no ";
-			query += "         ,name ";
-			query += "         ,password ";
+			query += " select  num ";
+			query += "         ,title ";
+			query += "         ,id ";
 			query += "         ,content ";
+			query += "         ,views ";
 			query += "         ,reg_date ";
 			query += " from boardbook ";
 			/**********************************************************************/
@@ -96,15 +97,16 @@ public class BoardDao {
 			// 4.결과처리
 			while (rs.next()) {
 
-				int no = rs.getInt(1);
-				String name = rs.getString(2);
-				String password = rs.getString(3);
+				int num = rs.getInt(1);
+				String title = rs.getString(2);
+				String id = rs.getString(3);
 				String content = rs.getString(4);
-				String reg_date = rs.getString(5);
+				int views = rs.getInt(5);
+				String regDate = rs.getString(6);
 
-				
+				BoardVo boardVo = new BoardVo(num, title, id, content, views, regDate);
 
-
+				boardList.add(boardVo);
 			}
 
 		} catch (SQLException e) {
