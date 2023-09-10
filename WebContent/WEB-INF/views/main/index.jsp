@@ -13,7 +13,7 @@
 <body>
 	<div id="wrap">
 
-	    <!-- header -->
+	    <!-- header&nav -->
 		<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 
 		<div id="container" class="clearfix">
