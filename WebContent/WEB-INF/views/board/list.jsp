@@ -1,4 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.javaex.dao.GuestDao"%>
+<%@ page import="com.javaex.vo.BoardVo"%>
+<%@ page import="java.util.List"%>
+
+<%
+// request의 어트리뷰트 영역에 있는 data를 꺼내온다.
+	// 게시판테이블에서 가져오기
+	List<BoardVo> boradList = (List<BoardVo>)request.getAttribute("bList");
+%>
+
 
 <!DOCTYPE html>
 <html>
@@ -14,35 +24,8 @@
 <body>
 	<div id="wrap">
 
-		<div id="header" class="clearfix">
-			<h1>
-				<a href="./main">MySite</a>
-			</h1>
-
-			<!-- 
-			<ul>
-				<li>황일영 님 안녕하세요^^</li>
-				<li><a href="" class="btn_s">로그아웃</a></li>
-				<li><a href="" class="btn_s">회원정보수정</a></li>
-			</ul>
-			-->
-			<ul>
-				<li><a href="./user?action=loginFrom" class="btn_s">로그인</a></li>
-				<li><a href="./user?action=joinFrom" class="btn_s">회원가입</a></li>
-			</ul>
-
-		</div>
-		<!-- //header -->
-
-		<div id="nav">
-			<ul class="clearfix">
-				<li><a href="">입사지원서</a></li>
-				<li><a href="">게시판</a></li>
-				<li><a href="">갤러리</a></li>
-				<li><a href="./user?action=addList">방명록</a></li>
-			</ul>
-		</div>
-		<!-- //nav -->
+	 <!-- header&nav -->
+		<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 
 		<div id="container" class="clearfix">
 			<div id="aside">
@@ -89,6 +72,7 @@
 								</tr>
 							</thead>
 							<tbody>
+							<%//for (int i = 0; i < boardList.size(); i++) {%>
 								<tr>
 									<td>123</td>
 									<td class="text-left"><a href="#">게시판 게시글입니다.</a></td>
@@ -97,38 +81,7 @@
 									<td>2020-12-23</td>
 									<td><a href="">[삭제]</a></td>
 								</tr>
-								<tr>
-									<td>123</td>
-									<td class="text-left"><a href="#">게시판 게시글입니다.</a></td>
-									<td>정우성</td>
-									<td>1232</td>
-									<td>2020-12-23</td>
-									<td><a href="">[삭제]</a></td>
-								</tr>
-								<tr>
-									<td>123</td>
-									<td class="text-left"><a href="#">게시판 게시글입니다.</a></td>
-									<td>정우성</td>
-									<td>1232</td>
-									<td>2020-12-23</td>
-									<td><a href="">[삭제]</a></td>
-								</tr>
-								<tr>
-									<td>123</td>
-									<td class="text-left"><a href="#">게시판 게시글입니다.</a></td>
-									<td>정우성</td>
-									<td>1232</td>
-									<td>2020-12-23</td>
-									<td><a href="">[삭제]</a></td>
-								</tr>
-								<tr class="last">
-									<td>123</td>
-									<td class="text-left"><a href="#">게시판 게시글입니다.</a></td>
-									<td>정우성</td>
-									<td>1232</td>
-									<td>2020-12-23</td>
-									<td><a href="">[삭제]</a></td>
-								</tr>
+							<%//} %>
 							</tbody>
 						</table>
 			
@@ -164,10 +117,9 @@
 		<!-- //container  -->
 		
 
-		<div id="footer">
-			Copyright ⓒ 2020 황일영. All right reserved
-		</div>
 		<!-- //footer -->
+		<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+		
 	</div>
 	<!-- //wrap -->
 

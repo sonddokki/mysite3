@@ -51,8 +51,7 @@ public class GuestbookController extends HttpServlet {
 			
 			// 모두 처리됐으면 리스트로 돌아가기
 			response.sendRedirect("./gbc?action=addList");
-			
-			
+				
 		} else if ("deleteFrom".equals(action)) {
 			System.out.println("deleteFrom");
 			
