@@ -54,9 +54,6 @@ public class UserController extends HttpServlet {
 			System.out.println(count);
 
 			// 가입성공 페이지
-//			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views//user/joinOk.jsp");
-//			rd.forward(request, response);
-
 			WebUtil.forword(request, response, "/WEB-INF/views/user/joinOk.jsp");
 
 		} else if ("loginFrom".equals(action)) {
@@ -126,13 +123,7 @@ public class UserController extends HttpServlet {
 			
 			//회원정보수정후 메인으로 리다이렉트
 			WebUtil.redirect(request, response, "/mysite3/main");
-			
-		// guestbook 으로 옮기기		
-//		} else if ("addList".equals(action)) {
-//			System.out.println("addList");
-//
-//			WebUtil.forword(request, response, "/WEB-INF/views/guestbook/addList.jsp");
-
+		
 		} else {
 			System.out.println("나머지");
 		}

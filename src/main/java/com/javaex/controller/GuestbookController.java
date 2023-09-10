@@ -19,10 +19,10 @@ public class GuestbookController extends HttpServlet {
 
 		String action = request.getParameter("action");
 
-		if ("list".equals(action)) {
-			System.out.println("modifyFrom");
+		if ("addList".equals(action)) {
+			System.out.println("addList");
 			
-			WebUtil.forword(request, response, "/WEB-INF/views/board/list.jsp");
+			WebUtil.forword(request, response, "/WEB-INF/views/guestbook/addList.jsp");
 		
 		} else if ("modifyFrom".equals(action)) {
 			System.out.println("modifyFrom");
@@ -31,6 +31,16 @@ public class GuestbookController extends HttpServlet {
 
 		} else if ("writeFrom".equals(action)) {
 			System.out.println("writeFrom");
+			
+			
+			
+			// guestbook 으로 옮기기		
+//			} else if ("addList".equals(action)) {
+//				System.out.println("addList");
+	//
+//				WebUtil.forword(request, response, "/WEB-INF/views/guestbook/addList.jsp");
+	
+			
 
 		} else {
 			System.out.println("나머지");
