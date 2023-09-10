@@ -6,7 +6,7 @@ public class BoardVo {
 	private String title;
 	private String id;
 	private String content;
-	private int  ;
+	private int views;
 	private String regDate;
 	
 	public BoardVo(int num, String title, String id, String content, int views, String regDate) {
