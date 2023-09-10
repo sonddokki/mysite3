@@ -1,4 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.javaex.dao.GuestDao"%>
+<%@ page import="com.javaex.vo.GuestVo"%>
+<%@ page import="java.util.List"%>
+
+<%
+	//request의 어트리뷰트 영역에 있는 data를 꺼내온다.
+	List<GuestVo> guestList = (List<GuestVo>)request.getAttribute("gList");
+
+	System.out.println("addList");	
+	System.out.println(guestList);	
+%>
+
+
 
 <!DOCTYPE html>
 <html>
@@ -42,7 +55,7 @@
 				<!-- //content-head -->
 
 				<div id="guestbook">
-					<form action="" method="">
+					<form action="gbc" method="get">
 						<table id="guestAdd">
 							<colgroup>
 								<col style="width: 70px;">
@@ -53,12 +66,13 @@
 							<tbody>
 								<tr>
 									<th><label class="form-text" for="input-uname">이름</label></td>
-									<td><input id="input-uname" type="text" name="name"></td>
+									<td><input id="input-uname" type="text" name="name" value=""></td>
 									<th><label class="form-text" for="input-pass">패스워드</label></td>
-									<td><input id="input-pass"type="password" name="pass"></td>
+									<td><input id="input-pass"type="password" name="pw" value=""></td>
+									<td><input type="hidden" name="action" value="listInsert"></td>
 								</tr>
 								<tr>
-									<td colspan="4"><textarea name="content" cols="72" rows="5"></textarea></td>
+									<td colspan="4"><textarea name="content" cols="72" rows="5" value="" ></textarea></td>
 								</tr>
 								<tr class="button-area">
 									<td colspan="4" class="text-center"><button type="submit">등록</button></td>
@@ -67,10 +81,11 @@
 							
 						</table>
 						<!-- //guestWrite -->
-						<input type="hidden" name="action" value="add">
+						<input type="hidden" name="action" value="listInsert">
 						
 					</form>	
 					
+					<%for (int i = 0; i < guestList.size(); i++) {%>	
 					<table class="guestRead">
 						<colgroup>
 							<col style="width: 10%;">
@@ -79,35 +94,16 @@
 							<col style="width: 10%;">
 						</colgroup>
 						<tr>
-							<td>1234555</td>
-							<td>이정재</td>
-							<td>2020-03-03 12:12:12</td>
-							<td><a href="">[삭제]</a></td>
+							<td><%=guestList.get(i).getNo()%></td>
+							<td><%=guestList.get(i).getName()%></td>
+							<td><%=guestList.get(i).getRegDate()%></td>
+							<td><a href="./gbc?action=deleteFrom&no=<%=guestList.get(i).getNo()%>">[삭제]</a></td>
 						</tr>
 						<tr>
-							<td colspan=4 class="text-left">방명록 글입니다. 방명록 글입니다.</td>
+							<td colspan=4 class="text-left"><%=guestList.get(i).getContent()%></td>
 						</tr>
 					</table>
-					<!-- //guestRead -->
-					
-					<table class="guestRead">
-						<colgroup>
-								<col style="width: 10%;">
-								<col style="width: 40%;">
-								<col style="width: 40%;">
-								<col style="width: 10%;">
-						</colgroup>
-						<tr>
-							<td>1234555</td>
-							<td>이정재</td>
-							<td>2020-03-03 12:12:12</td>
-							<td><a href="">[삭제]</a></td>
-						</tr>
-						<tr>
-							<td colspan=4 class="text-left">방명록 글입니다. 방명록 글입니다.</td>
-						</tr>
-					</table>	
-					<!-- //guestRead -->
+					<%}	%>
 					
 				</div>
 				<!-- //guestbook -->

@@ -69,8 +69,6 @@ public class GuestDao {
 		public List<GuestVo> guestSelect(String keyword) {
 
 			List<GuestVo> guestList = new ArrayList<GuestVo>();
-			System.out.println(keyword);
-			System.out.println(guestList);
 
 			this.getConnect();
 
