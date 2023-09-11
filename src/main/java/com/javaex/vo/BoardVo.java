@@ -12,24 +12,7 @@ public class BoardVo {
 	
 	public BoardVo() {}
 	
-	public BoardVo(int no, String title, String content, int hit, String regDate) {
-		this.no = no;
-		this.title = title;
-		this.content = content;
-		this.hit = hit;
-		this.regDate = regDate;
-	}
-	
-	public BoardVo(int no, String title, String content, int hit, String regDate, int userNo) {
-		this.no = no;
-		this.title = title;
-		this.content = content;
-		this.hit = hit;
-		this.regDate = regDate;
-		this.userNo = userNo;
-	}
-	
-	public BoardVo(int no, String title, String content, int hit, String regDate, int userNo, String name) {
+		public BoardVo(int no, String title, String content, int hit, String regDate, int userNo, String name) {
 		this.no = no;
 		this.title = title;
 		this.content = content;

@@ -1,14 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.javaex.dao.BoardDao"%>
-<%@ page import="com.javaex.vo.BoardVo"%>
-<%@ page import="java.util.List"%>
-
-<%
-// request의 어트리뷰트 영역에 있는 data를 꺼내온다.
-	// 게시판테이블에서 가져오기
-	List<BoardVo> boardList = (List<BoardVo>)request.getAttribute("bList");
-%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html>
@@ -72,16 +63,16 @@
 								</tr>
 							</thead>
 							<tbody>
-							<%for (int i = 0; i < boardList.size(); i++) {%>
+							<c:forEach items="${bList}" var="boardVo" varStatus="status">
 								<tr>
-									<td><%=boardList.get(i).getNo()%></td>
-									<td class="text-left"><a href="#"><%=boardList.get(i).getTitle()%></a></td>
-									<td><%=boardList.get(i).getName()%></td>
-									<td><%=boardList.get(i).getHit()%></td>
-									<td><%=boardList.get(i).getRegDate()%></td>
+									<td>${boardVo.no}</td>
+									<td class="text-left"><a href="#">${boardVo.title}</a></td>
+									<td>${boardVo.name}</td>
+									<td>${boardVo.hit}</td>
+									<td>${boardVo.regDate}</td>
 									<td><a href="./brc?action=delete">[삭제]</a></td>
 								</tr>
-							<%} %>
+							</c:forEach>
 							</tbody>
 						</table>
 			

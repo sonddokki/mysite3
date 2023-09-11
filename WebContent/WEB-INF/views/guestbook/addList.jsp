@@ -1,17 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.javaex.dao.GuestDao"%>
-<%@ page import="com.javaex.vo.GuestVo"%>
-<%@ page import="java.util.List"%>
-
-<%
-	//request의 어트리뷰트 영역에 있는 data를 꺼내온다.
-	List<GuestVo> guestList = (List<GuestVo>)request.getAttribute("gList");
-
-	System.out.println("addList");	
-	System.out.println(guestList);	
-%>
-
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html>
@@ -85,7 +73,7 @@
 						
 					</form>	
 					
-					<%for (int i = 0; i < guestList.size(); i++) {%>	
+					<c:forEach items="${gList}" var="guestVo" varStatus="status">					
 					<table class="guestRead">
 						<colgroup>
 							<col style="width: 10%;">
@@ -94,16 +82,16 @@
 							<col style="width: 10%;">
 						</colgroup>
 						<tr>
-							<td><%=guestList.get(i).getNo()%></td>
-							<td><%=guestList.get(i).getName()%></td>
-							<td><%=guestList.get(i).getRegDate()%></td>
-							<td><a href="./gbc?action=deleteFrom&no=<%=guestList.get(i).getNo()%>">[삭제]</a></td>
+							<td>${guestVo.no}</td>
+							<td>${guestVo.name}</td>
+							<td>${guestVo.regDate}</td>
+							<td><a href="./gbc?action=deleteFrom&no=${guestVo.no}">[삭제]</a></td>
 						</tr>
 						<tr>
-							<td colspan=4 class="text-left"><%=guestList.get(i).getContent()%></td>
+							<td colspan=4 class="text-left">${guestVo.content}</td>
 						</tr>
 					</table>
-					<%}	%>
+					</c:forEach>
 					
 				</div>
 				<!-- //guestbook -->

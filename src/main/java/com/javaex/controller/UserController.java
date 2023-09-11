@@ -102,6 +102,18 @@ public class UserController extends HttpServlet {
 		} else if ("modifyForm".equals(action)) {
 			System.out.println("회원정보수정폼");
 			
+			HttpSession session = request.getSession();
+			UserVo authUser = (UserVo)session.getAttribute("authUser");
+			
+			System.out.println(authUser);
+			
+			UserDao userDao = new UserDao();
+			UserVo modifyUser = userDao.userUpdateSelect(authUser);
+			request.setAttribute("modifyUser", modifyUser);
+			
+			System.out.println(modifyUser);
+			
+			
 			WebUtil.forword(request, response, "/WEB-INF/views/user/modifyForm.jsp");
 			
 		} else if ("modify".equals(action)) {
