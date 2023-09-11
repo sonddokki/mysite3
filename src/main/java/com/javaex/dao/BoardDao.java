@@ -72,16 +72,18 @@ public class BoardDao {
 			// 3. SQL문 준비 / 바인딩 / 실행
 			// SQL문 준비
 			String query = "";
-			query += " select  num ";
-			query += "         ,title ";
-			query += "         ,id ";
-			query += "         ,content ";
-			query += "         ,views ";
-			query += "         ,reg_date ";
-			query += " from boardbook ";
+			query += " select  bo.no, ";
+			query += "         bo.title, ";
+			query += "         bo.content, ";
+			query += "         bo.hit, ";
+			query += "         bo.reg_date, ";
+			query += "         bo.user_no, ";
+			query += "         us.name ";
+			query += " FROM board bo, users us ";
+			query += " where bo.user_no = us.no ";
 			/**********************************************************************/
 			if(!keyword.equals("")) { //keyword가 ""가 아니면 ==> keyword가 있으면 검색
-				query += " where name like ? ";
+				query += " and where name like ? ";
 			}
 			
 			pstmt = conn.prepareStatement(query);
@@ -97,14 +99,15 @@ public class BoardDao {
 			// 4.결과처리
 			while (rs.next()) {
 
-				int num = rs.getInt(1);
+				int no = rs.getInt(1);
 				String title = rs.getString(2);
-				String id = rs.getString(3);
-				String content = rs.getString(4);
-				int views = rs.getInt(5);
-				String regDate = rs.getString(6);
+				String content = rs.getString(3);
+				int hit = rs.getInt(4);
+				String regDate = rs.getString(5);
+				int user_no = rs.getInt(6);
+				String name = rs.getString(7);
 
-				BoardVo boardVo = new BoardVo(num, title, id, content, views, regDate);
+				BoardVo boardVo = new BoardVo(no, title, content, hit, regDate, user_no, name);
 
 				boardList.add(boardVo);
 			}
@@ -118,6 +121,10 @@ public class BoardDao {
 		return boardList;
 
 	}
+	
+	
+	
+	
 	
 	
 	

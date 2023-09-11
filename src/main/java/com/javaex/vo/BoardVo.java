@@ -2,28 +2,49 @@ package com.javaex.vo;
 
 public class BoardVo {
 	
-	private int num;
+	private int no;
 	private String title;
-	private String id;
 	private String content;
-	private int views;
+	private int hit;
 	private String regDate;
+	private int userNo;
+	private String name;
 	
-	public BoardVo(int num, String title, String id, String content, int views, String regDate) {
-		this.num = num;
+	public BoardVo() {}
+	
+	public BoardVo(int no, String title, String content, int hit, String regDate) {
+		this.no = no;
 		this.title = title;
-		this.id = id;
 		this.content = content;
-		this.views = views;
+		this.hit = hit;
 		this.regDate = regDate;
 	}
-
-	public int getNum() {
-		return num;
+	
+	public BoardVo(int no, String title, String content, int hit, String regDate, int userNo) {
+		this.no = no;
+		this.title = title;
+		this.content = content;
+		this.hit = hit;
+		this.regDate = regDate;
+		this.userNo = userNo;
+	}
+	
+	public BoardVo(int no, String title, String content, int hit, String regDate, int userNo, String name) {
+		this.no = no;
+		this.title = title;
+		this.content = content;
+		this.hit = hit;
+		this.regDate = regDate;
+		this.userNo = userNo;
+		this.name = name;
+	}
+	
+	public int getNo() {
+		return no;
 	}
 
-	public void setNum(int num) {
-		this.num = num;
+	public void setNo(int no) {
+		this.no = no;
 	}
 
 	public String getTitle() {
@@ -34,14 +55,6 @@ public class BoardVo {
 		this.title = title;
 	}
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
 	public String getContent() {
 		return content;
 	}
@@ -50,12 +63,12 @@ public class BoardVo {
 		this.content = content;
 	}
 
-	public int getViews() {
-		return views;
+	public int getHit() {
+		return hit;
 	}
 
-	public void setViews(int views) {
-		this.views = views;
+	public void setHit(int hit) {
+		this.hit = hit;
 	}
 
 	public String getRegDate() {
@@ -66,11 +79,33 @@ public class BoardVo {
 		this.regDate = regDate;
 	}
 
+	public int getUserNo() {
+		return userNo;
+	}
+
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	@Override
 	public String toString() {
-		return "boardVo [num=" + num + ", title=" + title + ", id=" + id + ", content=" + content + ", views=" + views
-				+ ", regDate=" + regDate + "]";
+		return "BoardVo [no=" + no + ", title=" + title + ", content=" + content + ", hit=" + hit + ", regDate="
+				+ regDate + ", userNo=" + userNo + ", name=" + name + "]";
 	}
+	
+	
+	
+	
+	
+	
 	
 	
 	

@@ -74,10 +74,10 @@
 							<tbody>
 							<%for (int i = 0; i < boardList.size(); i++) {%>
 								<tr>
-									<td><%=boardList.get(i).getNum()%></td>
+									<td><%=boardList.get(i).getNo()%></td>
 									<td class="text-left"><a href="#"><%=boardList.get(i).getTitle()%></a></td>
-									<td><%=boardList.get(i).getId()%></td>
-									<td><%=boardList.get(i).getViews()%></td>
+									<td><%=boardList.get(i).getName()%></td>
+									<td><%=boardList.get(i).getHit()%></td>
 									<td><%=boardList.get(i).getRegDate()%></td>
 									<td><a href="./brc?action=delete">[삭제]</a></td>
 								</tr>
