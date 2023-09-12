@@ -80,16 +80,41 @@ public class BoardController extends HttpServlet {
 			boardDao.boardInsert(boardVo);
 			
 			// 등록후 리다이렉트
-			WebUtil.redirect(request, response, "/mysite3/brc?action=list");
+			WebUtil.redirect(request, response, "/mysite3/brc?action=read");
 			
 			
 			
 		} else if ("modifyForm".equals(action)) {
-			System.out.println("수정");
+			System.out.println("수정폼");
+			
+			int no = Integer.parseInt(request.getParameter("no"));
+			System.out.println(no);			
+			
+			BoardDao boardDao = new BoardDao();
+			BoardVo boardRead = boardDao.boardRead(no);
+			
+			System.out.println(boardRead);
+
+			// request data를 넣는다
+			request.setAttribute("boardRead", boardRead);		
 			
 			// 수정폼으로 포워드
 			WebUtil.forword(request, response, "/WEB-INF/views/board/modifyForm.jsp");
 		
+		} else if ("modify".equals(action)) {
+			System.out.println("수정");
+			
+			int userNo = Integer.parseInt(request.getParameter("userNo"));
+			int titleNo = Integer.parseInt(request.getParameter("no"));
+			String title = request.getParameter("title");
+			String content = request.getParameter("content");
+			
+			BoardDao boardDao = new BoardDao();
+			boardDao.boardUpdate(userNo, titleNo, title, content);
+			
+			
+			// 수정후 리다이렉트
+			WebUtil.redirect(request, response, "/mysite3/brc?action=read"+"&no="+titleNo);
 			
 		} else if ("delete".equals(action)) {
 			System.out.println("삭제");

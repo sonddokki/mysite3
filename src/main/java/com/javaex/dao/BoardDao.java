@@ -249,7 +249,7 @@ public class BoardDao {
 	}
 
 	// 게시판글 수정
-	public int boardUpdate(int userNo, int titleNo) {
+	public int boardUpdate(int userNo, int titleNo, String title, String content) {
 
 		int count = -1;
 
@@ -268,8 +268,10 @@ public class BoardDao {
 			pstmt = conn.prepareStatement(query);
 
 			// 바인딩
-			pstmt.setInt(1, userNo);
-			pstmt.setInt(2, titleNo);
+			pstmt.setString(1, title);
+			pstmt.setString(2, content);
+			pstmt.setInt(3, userNo);
+			pstmt.setInt(4, titleNo);
 
 			// 실행
 			count = pstmt.executeUpdate();

@@ -72,8 +72,10 @@
 								<span class="form-value"> ${boardRead.content}
 								</span>
 							</div>
-
-							<a id="btn_modify" href="">수정</a> <a id="btn_modify" href="./brc?action=list">목록</a>
+							<c:if test="${boardRead.userNo == authUser.no}" >
+							<a id="btn_modify" href="./brc?action=modifyForm&no=${boardRead.no}">수정</a> 
+							</c:if>
+							<a id="btn_modify" href="./brc?action=list">목록</a>
 
 						</form>
 						<!-- //form -->
