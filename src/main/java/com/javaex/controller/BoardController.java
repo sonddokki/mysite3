@@ -87,7 +87,7 @@ public class BoardController extends HttpServlet {
 			boardDao.boardInsert(boardVo);
 			
 			// 등록후 리다이렉트
-			WebUtil.redirect(request, response, "/mysite3/brc?action=read");
+			WebUtil.redirect(request, response, "/mysite3/brc?action=list");
 			
 			
 			
@@ -134,7 +134,18 @@ public class BoardController extends HttpServlet {
 			// 삭제 실행후 리다이렉트
 			WebUtil.redirect(request, response, "/mysite3/brc?action=list");
 		
-		
+		} else if ("select".equals(action)) {
+			System.out.println("검색");
+			
+			String search = request.getParameter("search");
+			BoardDao boardDao = new BoardDao();
+			List<BoardVo> searchList = boardDao.boardSearch(search);
+			
+			// request data를 넣는다
+			request.setAttribute("bList", searchList);
+			
+			WebUtil.forword(request, response, "/WEB-INF/views/board/list.jsp");
+			
 		} else {
 			System.out.println("나머지");
 		}
