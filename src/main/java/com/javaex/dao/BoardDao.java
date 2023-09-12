@@ -85,7 +85,7 @@ public class BoardDao {
 			if (!keyword.equals("")) { // keyword가 ""가 아니면 ==> keyword가 있으면 검색
 				query += " and bo.no = ? ";
 			}
-			query += " ORDER BY bo.no desc ";		
+			query += " ORDER BY bo.no desc ";
 
 			pstmt = conn.prepareStatement(query);
 
@@ -314,7 +314,7 @@ public class BoardDao {
 
 	}
 
-	// 게시판 검색 진행중
+	// 게시판 검색
 	public List<BoardVo> boardSearch(String keyword) {
 
 		List<BoardVo> boardList = new ArrayList<BoardVo>();
@@ -337,10 +337,10 @@ public class BoardDao {
 			query += " where bo.user_no = us.no ";
 			query += " and title like ? ";
 			query += " ORDER BY bo.no desc ";
-			
+
 			pstmt = conn.prepareStatement(query);
 
-			pstmt.setString(1, "%"+keyword+"%");
+			pstmt.setString(1, "%" + keyword + "%");
 
 			// 실행
 			rs = pstmt.executeQuery();
