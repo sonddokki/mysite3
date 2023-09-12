@@ -45,6 +45,7 @@ public class BoardController extends HttpServlet {
 			
 			int no = Integer.parseInt(request.getParameter("no"));
 			
+			// 글제목을 눌러 불러올때만 조회수 상승
 			String hit = request.getParameter("hit");
 			if (hit != null) {
 				boardDao.boardHit(no);

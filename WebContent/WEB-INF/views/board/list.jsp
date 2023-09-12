@@ -67,12 +67,12 @@
 							<c:forEach items="${bList}" var="boardVo" varStatus="status">
 								<tr>
 									<td>${boardVo.no}</td>
-									<td class="text-left"><a href="./brc?action=read&no=${boardVo.no}">${boardVo.title}</a></td>
+									<td class="text-left"><a href="./brc?action=read&no=${boardVo.no}&hit=hit">${boardVo.title}</a></td>
 									<td>${boardVo.name}</td>
 									<td>${boardVo.hit}</td>
 									<td>${boardVo.regDate}</td>
 									<c:if test="${boardVo.userNo == authUser.no}" >
-									<td><a href="./brc?action=delete&userNo=${boardVo.userNo}&boardNo=${boardVo.no}&hit=hit">[삭제]</a></td>
+									<td><a href="./brc?action=delete&userNo=${boardVo.userNo}&boardNo=${boardVo.no}">[삭제]</a></td>
 									</c:if>							
 									
 								</tr>
