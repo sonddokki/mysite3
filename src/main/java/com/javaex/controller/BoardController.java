@@ -41,9 +41,15 @@ public class BoardController extends HttpServlet {
 		} else if ("read".equals(action)) {
 			System.out.println("읽기");
 			
+			BoardDao boardDao = new BoardDao();
+			
 			int no = Integer.parseInt(request.getParameter("no"));
 			
-			BoardDao boardDao = new BoardDao();
+			String hit = request.getParameter("hit");
+			if (hit != null) {
+				boardDao.boardHit(no);
+			}
+						
 			BoardVo boardRead = boardDao.boardRead(no);
 			
 			System.out.println(boardRead);

@@ -134,15 +134,6 @@ public class BoardDao {
 		try {
 			// 3. SQL문 준비 / 바인딩 / 실행
 			// SQL문 준비
-			String query2 = "";
-			query2 += " UPDATE board ";
-			query2 += " set hit = hit+1 ";
-			query2 += " where no = ? ";
-			
-			pstmt = conn.prepareStatement(query2);
-			pstmt.setInt(1, readNo);
-			pstmt.executeQuery();			
-			
 			String query = "";
 			query += " select  bo.no, ";
 			query += "         bo.title, ";
@@ -186,6 +177,32 @@ public class BoardDao {
 		return boardVo;
 
 	}
+	
+	public void boardHit(int titleNo) {
+
+		this.getConnect();
+
+		try {
+			// 3. SQL문 준비 / 바인딩 / 실행
+			// SQL문 준비
+			String query = "";
+			query += " UPDATE board ";
+			query += " set hit = hit+1 ";
+			query += " where no = ? ";
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, titleNo);
+			pstmt.executeQuery();			
+							
+
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		}
+
+		this.close();
+
+	}
+	
 	
 	
 	// 게시판 등록 (조회수 하기)
