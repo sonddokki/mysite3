@@ -134,6 +134,15 @@ public class BoardDao {
 		try {
 			// 3. SQL문 준비 / 바인딩 / 실행
 			// SQL문 준비
+			String query2 = "";
+			query2 += " UPDATE board ";
+			query2 += " set hit = hit+1 ";
+			query2 += " where no = ? ";
+			
+			pstmt = conn.prepareStatement(query2);
+			pstmt.setInt(1, readNo);
+			pstmt.executeQuery();			
+			
 			String query = "";
 			query += " select  bo.no, ";
 			query += "         bo.title, ";
@@ -145,9 +154,8 @@ public class BoardDao {
 			query += " FROM board bo, users us ";
 			query += " where bo.user_no = us.no ";
 			query += " and bo.no = ? ";
-
-			pstmt = conn.prepareStatement(query);
-
+			
+			pstmt = conn.prepareStatement(query);			
 			pstmt.setInt(1, readNo);
 
 			// 실행
@@ -163,8 +171,11 @@ public class BoardDao {
 			String regDate = rs.getString(5);
 			String name = rs.getString(6);
 			int userNo = rs.getInt(7);
-
+			
 			boardVo = new BoardVo(no, title, content, hit, regDate, name, userNo);
+			
+			
+			
 
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
@@ -175,7 +186,8 @@ public class BoardDao {
 		return boardVo;
 
 	}
-
+	
+	
 	// 게시판 등록 (조회수 하기)
 	public int boardInsert(BoardVo boardVo) { // Vo로 받았음
 		int count = -1;
