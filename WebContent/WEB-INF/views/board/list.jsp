@@ -61,16 +61,20 @@
 									<th>작성일</th>
 									<th>관리</th>
 								</tr>
-							</thead>
+							</thead>							
+									
 							<tbody>
 							<c:forEach items="${bList}" var="boardVo" varStatus="status">
 								<tr>
 									<td>${boardVo.no}</td>
-									<td class="text-left"><a href="#">${boardVo.title}</a></td>
+									<td class="text-left"><a href="./brc?action=read&no=${boardVo.no}">${boardVo.title}</a></td>
 									<td>${boardVo.name}</td>
 									<td>${boardVo.hit}</td>
 									<td>${boardVo.regDate}</td>
-									<td><a href="./brc?action=delete">[삭제]</a></td>
+									<c:if test="${boardVo.userNo == authUser.no}" >
+									<td><a href="./brc?action=delete&userNo=${boardVo.userNo}&boardNo=${boardVo.no}">[삭제]</a></td>
+									</c:if>							
+									
 								</tr>
 							</c:forEach>
 							</tbody>

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.javaex.vo.BoardVo;
+import com.javaex.vo.GuestVo;
 
 public class BoardDao {
 
@@ -59,12 +60,11 @@ public class BoardDao {
 		}
 	}
 
-	
-	
-	// 게시판 리스트 수정중
+	// 게시판 리스트 완료
 	public List<BoardVo> boardSelect(String keyword) {
 
 		List<BoardVo> boardList = new ArrayList<BoardVo>();
+		System.out.println(keyword);
 
 		this.getConnect();
 
@@ -77,20 +77,21 @@ public class BoardDao {
 			query += "         bo.content, ";
 			query += "         bo.hit, ";
 			query += "         bo.reg_date, ";
-			query += "         bo.user_no, ";
-			query += "         us.name ";
+			query += "         us.name, ";
+			query += "         us.no ";
 			query += " FROM board bo, users us ";
 			query += " where bo.user_no = us.no ";
 			/**********************************************************************/
-			if(!keyword.equals("")) { //keyword가 ""가 아니면 ==> keyword가 있으면 검색
-				query += " and where name like ? ";
+			if (!keyword.equals("")) { // keyword가 ""가 아니면 ==> keyword가 있으면 검색
+				query += " and bo.no = ? ";
 			}
-			
+
 			pstmt = conn.prepareStatement(query);
 
 			// 바인딩**********************************************************************
-			if(!keyword.equals("")) { //keyword가 ""가 아니면 ==> keyword가 있으면 검색
-				pstmt.setString(1, "%"+keyword+"%");
+			if (!keyword.equals("")) { // keyword가 ""가 아니면 ==> keyword가 있으면 검색
+				int key = Integer.parseInt(keyword);
+				pstmt.setInt(1, key);
 			}
 
 			// 실행
@@ -104,10 +105,10 @@ public class BoardDao {
 				String content = rs.getString(3);
 				int hit = rs.getInt(4);
 				String regDate = rs.getString(5);
-				int user_no = rs.getInt(6);
-				String name = rs.getString(7);
+				String name = rs.getString(6);
+				int userNo = rs.getInt(7);
 
-				BoardVo boardVo = new BoardVo(no, title, content, hit, regDate, user_no, name);
+				BoardVo boardVo = new BoardVo(no, title, content, hit, regDate, name, userNo);
 
 				boardList.add(boardVo);
 			}
@@ -121,11 +122,169 @@ public class BoardDao {
 		return boardList;
 
 	}
-	
-	
-	
-	
-	
-	
-	
+
+	// 게시판 읽기
+	public BoardVo boardRead(int readNo) {
+
+		BoardVo boardVo = new BoardVo();
+		System.out.println(readNo);
+
+		this.getConnect();
+
+		try {
+			// 3. SQL문 준비 / 바인딩 / 실행
+			// SQL문 준비
+			String query = "";
+			query += " select  bo.no, ";
+			query += "         bo.title, ";
+			query += "         bo.content, ";
+			query += "         bo.hit, ";
+			query += "         bo.reg_date, ";
+			query += "         us.name, ";
+			query += "         us.no ";
+			query += " FROM board bo, users us ";
+			query += " where bo.user_no = us.no ";
+			query += " and bo.no = ? ";
+
+			pstmt = conn.prepareStatement(query);
+
+			pstmt.setInt(1, readNo);
+
+			// 실행
+			rs = pstmt.executeQuery();
+
+			// 4.결과처리
+			rs.next();
+
+			int no = rs.getInt(1);
+			String title = rs.getString(2);
+			String content = rs.getString(3);
+			int hit = rs.getInt(4);
+			String regDate = rs.getString(5);
+			String name = rs.getString(6);
+			int userNo = rs.getInt(7);
+
+			boardVo = new BoardVo(no, title, content, hit, regDate, name, userNo);
+
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		}
+
+		this.close();
+
+		return boardVo;
+
+	}
+
+	// 게시판 등록 (조회수 하기)
+	public int boardInsert(BoardVo boardVo) { // Vo로 받았음
+		int count = -1;
+
+		this.getConnect();
+
+		try {
+			// 3. SQL문 준비 / 바인딩 / 실행
+			// SQL문 준비
+			String query = "";
+			query += " insert into board ";
+			query += " VALUES (seq_board_no.nextval, ?, ?, 0, SYSDATE, ?) ";
+
+			pstmt = conn.prepareStatement(query);
+
+			// 바인딩 값을 vo에 setter로 넣어준다
+			pstmt.setString(1, boardVo.getTitle());
+			pstmt.setString(2, boardVo.getContent());
+			pstmt.setInt(3, boardVo.getUserNo());
+
+			// 실행
+			count = pstmt.executeUpdate();
+
+			// 4.결과처리
+			// System.out.println(count + "건 등록되었습니다.");
+
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		}
+
+		this.close();
+
+		return count;
+	}
+
+	// 게시판 삭제
+	public int boardDelete(int userNo, int boardNo) {
+
+		int count = -1;
+
+		this.getConnect();
+
+		try {
+			// 3. SQL문 준비 / 바인딩 / 실행
+			// SQL문 준비
+			String query = "";
+			query += " DELETE from board ";
+			query += " where user_no = ? ";
+			query += " and no = ? ";
+
+			pstmt = conn.prepareStatement(query);
+
+			// 바인딩
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, boardNo);
+
+			// 실행
+			count = pstmt.executeUpdate();
+
+			// 4.결과처리
+			// System.out.println(count + "건 등록되었습니다.");
+
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		}
+
+		this.close();
+
+		return count;
+
+	}
+
+	// 게시판글 수정
+	public int boardUpdate(int userNo, int titleNo) {
+
+		int count = -1;
+
+		this.getConnect();
+
+		try {
+			// 3. SQL문 준비 / 바인딩 / 실행
+			// SQL문 준비
+			String query = "";
+			query += " UPDATE board ";
+			query += " set title = ? ";
+			query += "     ,content = ? ";
+			query += " where user_no = ? ";
+			query += " and no = ? ";
+
+			pstmt = conn.prepareStatement(query);
+
+			// 바인딩
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, titleNo);
+
+			// 실행
+			count = pstmt.executeUpdate();
+
+			// 4.결과처리
+			// System.out.println(count + "건 등록되었습니다.");
+
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		}
+
+		this.close();
+
+		return count;
+
+	}
+
 }
